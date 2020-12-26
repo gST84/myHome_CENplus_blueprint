@@ -1,0 +1,93 @@
+blueprint:
+  name: Myhome CEN
+  description: Control anything using MyHome CEN commands.
+  domain: automation
+  input:
+    cen_adress:
+      name: CEN Adress
+      selector:
+        number:
+          min: 0
+          max: 2047
+          mode: box
+          step: 1
+  
+    cen_pushbutton:
+      name: CEN Pushbutton
+      default: 1
+      selector:
+        number:
+          min: 1
+          max: 99
+          mode: box
+          step: 1
+
+    button_short_press:
+      name: Button press
+      description: Action to run on press.
+      default: []
+      selector:
+        action: {}
+
+    button_short_release:
+      name: Button release
+      description: Action to run on release.
+      default: []
+      selector:
+        action: {}
+
+    button_long_press:
+      name: Button hold press
+      description: Action to run on long press.
+      default: []
+      selector:
+        action: {}
+
+    button_long_release:
+      name: Button hold release
+      description: Action to run on long press release
+      default: []
+      selector:
+        action: {}
+
+mode: restart
+max_exceeded: silent  
+
+variables:
+  var_cen_adress: !input cen_adress
+  var_cen_pushbutton: !input cen_pushbutton
+
+trigger:
+- platform: event
+  event_type: myhome_cenplus_event
+
+
+condition:
+  condition: and
+  conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.object == var_cen_adress|int }}'
+    - condition: template
+      value_template: '{{ trigger.event.data.pushbutton == var_cen_pushbutton|int }}'
+
+
+action:
+- variables:
+    event: '{{ trigger.event.data.event }}'
+- choose:
+  - conditions:
+    - '{{ event == "pushbutton_short_press" }}'
+    sequence: !input 'button_short_press'
+
+  - conditions:
+    - '{{ event == "pushbutton_short_release" }}'
+    sequence: !input 'button_short_release'
+
+  - conditions:
+    - '{{ event == "pushbutton_long_press" }}'
+    sequence: !input 'button_long_press'
+ 
+  - conditions:
+    - '{{ event == "pushbutton_long_release" }}'
+    sequence: !input 'button_long_release'
+ 
