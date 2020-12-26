@@ -14,6 +14,7 @@ blueprint:
   
     cen_pushbutton:
       name: CEN pushbutton
+      default: 1
       selector:
         number:
           min: 1
