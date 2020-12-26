@@ -1,10 +1,10 @@
 blueprint:
   name: Myhome CEN+
-  description: Control anything using MyHome CEN+ Commands
+  description: Control anything using MyHome CEN+ commands.
   domain: automation
   input:
     cen_adress:
-      name: CEN Adress
+      name: CEN+ Adress
       selector:
         number:
           min: 0
@@ -13,7 +13,7 @@ blueprint:
           step: 1
   
     cen_pushbutton:
-      name: CEN pushbutton
+      name: CEN+ Pushbutton
       default: 1
       selector:
         number:
