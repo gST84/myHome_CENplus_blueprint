@@ -1,6 +1,7 @@
 blueprint:
   name: Myhome CEN+
   description: Control anything using MyHome CEN+ commands.
+  source_url: https://github.com/gST84/myHome_blueprints/blob/main/CENplus/myhome-cen-plus.yaml
   domain: automation
   input:
     cen_adress:
