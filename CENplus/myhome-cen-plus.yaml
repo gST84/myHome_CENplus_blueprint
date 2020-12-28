@@ -79,5 +79,5 @@ action:
 
   - conditions:
     - '{{ event == "pushbutton_long_release" }}'
-    sequence: !input 'button_long'
+    sequence: !input 'button_release'
  
